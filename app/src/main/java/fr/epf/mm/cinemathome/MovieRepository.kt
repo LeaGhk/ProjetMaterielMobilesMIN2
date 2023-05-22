@@ -50,4 +50,64 @@ object MovieRepository {
             })
     }
 
+    fun getTopRatedMovies(
+        page: Int = 1,
+        onSuccess: (movies: List<Movie>) -> Unit,
+        onError: () -> Unit
+    ) {
+        api.getTopRatedMovies(page = page)
+            .enqueue(object : Callback<MovieResult> {
+                override fun onResponse(
+                    call: Call<MovieResult>,
+                    response: Response<MovieResult>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody.movies)
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieResult>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
+    fun getNowPlayingMovies(
+        page: Int = 1,
+        onSuccess: (movies: List<Movie>) -> Unit,
+        onError: () -> Unit
+    ) {
+        api.getNowPlayingMovies(page = page)
+            .enqueue(object : Callback<MovieResult> {
+                override fun onResponse(
+                    call: Call<MovieResult>,
+                    response: Response<MovieResult>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody.movies)
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieResult>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
 }

@@ -1,5 +1,6 @@
 package fr.epf.mm.cinemathome
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             false
         )
         popularMovies.layoutManager = popularMoviesLayoutMgr
-        popularMoviesAdapter = MovieAdapter(mutableListOf())
+        popularMoviesAdapter = MovieAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         popularMovies.adapter = popularMoviesAdapter
         getPopularMovies()
 
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             false
         )
         topRatedMovies.layoutManager = topRatedMoviesLayoutMgr
-        topRatedMoviesAdapter = MovieAdapter(mutableListOf())
+        topRatedMoviesAdapter = MovieAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         topRatedMovies.adapter = topRatedMoviesAdapter
         getTopRatedMovies()
 
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
             false
         )
         nowPlayingMovies.layoutManager = nowPlayingMoviesLayoutMgr
-        nowPlayingMoviesAdapter = MovieAdapter(mutableListOf())
+        nowPlayingMoviesAdapter = MovieAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         nowPlayingMovies.adapter = nowPlayingMoviesAdapter
         getNowPlayingMovies()
 
@@ -151,4 +152,17 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun showMovieDetails(movie: Movie) {
+        val intent = Intent(this, MovieDetailsActivity::class.java)
+        intent.putExtra(MOVIE_BACKDROP, movie.backdropPath)
+        intent.putExtra(MOVIE_POSTER, movie.posterPath)
+        intent.putExtra(MOVIE_TITLE, movie.title)
+        intent.putExtra(MOVIE_RATING, movie.rating)
+        intent.putExtra(MOVIE_RELEASE_DATE, movie.releaseDate)
+        intent.putExtra(MOVIE_OVERVIEW, movie.overview)
+        startActivity(intent)
+    }
+
+
 }

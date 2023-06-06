@@ -33,4 +33,11 @@ interface APIInterface {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("page") page: Int
     ): Call<MovieResult>
+
+    @GET("search/movie")
+    fun getSearchMovies(
+        @Query("query") search: String,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("page") page: Int
+    ): Call<MovieResult>
 }

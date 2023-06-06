@@ -3,6 +3,8 @@ package fr.epf.mm.cinemathome
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -64,6 +66,17 @@ class MainActivity : AppCompatActivity() {
         nowPlayingMoviesAdapter = MovieAdapter(mutableListOf()) { movie -> showMovieDetails(movie) }
         nowPlayingMovies.adapter = nowPlayingMoviesAdapter
         getNowPlayingMovies()
+
+
+        val searchButton = findViewById<Button>(R.id.searchButton)
+        val searchEditText = findViewById<EditText>(R.id.searchEditText)
+        searchButton.setOnClickListener {
+            val query = searchEditText.text.toString()
+            val intent = Intent(this, SearchMoviesActivity::class.java)
+            intent.putExtra(MOVIE_SEARCH, query)
+            startActivity(intent)
+        }
+
 
     }
 
@@ -164,6 +177,12 @@ class MainActivity : AppCompatActivity() {
         intent.putExtra(MOVIE_ID, movie.id)
         startActivity(intent)
     }
+
+    private fun searchActivity(movie: Movie) {
+        println("coucou je suis en train de faire des trucs")
+
+    }
+
 
 
 }

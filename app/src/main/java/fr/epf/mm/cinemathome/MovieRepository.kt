@@ -141,4 +141,35 @@ object MovieRepository {
             })
     }
 
+    fun getSearchMovies(
+        page: Int = 1,
+        searched: String,
+        onSuccess: (movies: List<Movie>) -> Unit,
+        onError: () -> Unit
+    ) {
+        api.getSearchMovies(search = searched, page = page)
+            .enqueue(object : Callback<MovieResult> {
+                override fun onResponse(
+                    call: Call<MovieResult>,
+                    response: Response<MovieResult>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody.movies)
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieResult>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
 }

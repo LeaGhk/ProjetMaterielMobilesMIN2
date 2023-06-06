@@ -14,6 +14,9 @@
         android:theme="@style/Theme.CinematHome"
         tools:targetApi="31">
         <activity
+            android:name=".SearchMoviesActivity"
+            android:exported="false" />
+        <activity
             android:name=".MovieDetailsActivity"
             android:exported="false" />
         <activity

@@ -96,9 +96,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         rating.rating = extras.getFloat(MOVIE_RATING, 0f) / 2
         releaseDate.text = extras.getString(MOVIE_RELEASE_DATE, "")
         overview.text = extras.getString(MOVIE_OVERVIEW, "")
-        // AAH
         movieId = extras.getInt(MOVIE_ID)
-        //getSimilarMovies(movieId)
         getSimilarMovies()
     }
 

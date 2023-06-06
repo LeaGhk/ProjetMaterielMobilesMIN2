@@ -1,6 +1,6 @@
 package fr.epf.mm.cinemathome
 
-import android.util.Log
+import android.widget.Toast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,6 +86,37 @@ object MovieRepository {
         onError: () -> Unit
     ) {
         api.getNowPlayingMovies(page = page)
+            .enqueue(object : Callback<MovieResult> {
+                override fun onResponse(
+                    call: Call<MovieResult>,
+                    response: Response<MovieResult>
+                ) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+
+                        if (responseBody != null) {
+                            onSuccess.invoke(responseBody.movies)
+                        } else {
+                            onError.invoke()
+                        }
+                    } else {
+                        onError.invoke()
+                    }
+                }
+
+                override fun onFailure(call: Call<MovieResult>, t: Throwable) {
+                    onError.invoke()
+                }
+            })
+    }
+
+    fun getSimilarMovies(
+        page: Int = 1,
+        movieId: Int,
+        onSuccess: (movies: List<Movie>) -> Unit,
+        onError: () -> Unit
+    ) {
+        api.getSimilarMovies(movie_id = movieId, page = page)
             .enqueue(object : Callback<MovieResult> {
                 override fun onResponse(
                     call: Call<MovieResult>,

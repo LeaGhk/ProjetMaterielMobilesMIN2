@@ -2,6 +2,7 @@ package fr.epf.mm.cinemathome
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 const val API_KEY = "5b6adc52282ae68909484fb3fcd7cd07"
@@ -26,4 +27,10 @@ interface APIInterface {
         @Query("page") page: Int
     ): Call<MovieResult>
 
+    @GET("movie/{movie_id}/similar")
+    fun getSimilarMovies(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("page") page: Int
+    ): Call<MovieResult>
 }

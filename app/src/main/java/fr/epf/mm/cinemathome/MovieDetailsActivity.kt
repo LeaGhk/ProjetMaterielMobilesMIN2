@@ -3,6 +3,8 @@ package fr.epf.mm.cinemathome
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
@@ -11,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import fr.epf.mm.cinemathome.MovieRepository.getSimilarMovies
 
 const val MOVIE_BACKDROP = "extra_movie_backdrop"
 const val MOVIE_POSTER = "extra_movie_poster"
@@ -144,6 +145,41 @@ class MovieDetailsActivity : AppCompatActivity() {
         intent.putExtra(MOVIE_ID, movie.id)
         startActivity(intent)
     }
+
+
+
+    override fun onCreateOptionsMenu (menu: Menu?) : Boolean{
+        menuInflater.inflate(R.menu.movie_details_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.action_qrcode -> {
+                val intent = Intent(this, ScannerActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.action_favorite -> {
+                if (FavoritesManager.isFavorite(this, movieId)) {
+                    FavoritesManager.removeFavorite(this, movieId)
+                    Toast.makeText(this, "Removed from favorites :(", Toast.LENGTH_SHORT).show()
+                } else {
+                    FavoritesManager.addFavorite(this, movieId)
+                    Toast.makeText(this, "Add to favorites !", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
+
+
 
 
 }

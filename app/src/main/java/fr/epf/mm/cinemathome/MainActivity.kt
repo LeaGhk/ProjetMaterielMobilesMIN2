@@ -2,6 +2,8 @@ package fr.epf.mm.cinemathome
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var nowPlayingMoviesLayoutMgr: LinearLayoutManager
     private var nowPlayingMoviesPage = 1
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -73,12 +77,6 @@ class MainActivity : AppCompatActivity() {
             val query = searchEditText.text.toString()
             val intent = Intent(this, SearchMoviesActivity::class.java)
             intent.putExtra(MOVIE_SEARCH, query)
-            startActivity(intent)
-        }
-
-        val btnNextActivity: Button = findViewById(R.id.btnNextActivity)
-        btnNextActivity.setOnClickListener {
-            val intent = Intent(this, ScannerActivity::class.java)
             startActivity(intent)
         }
 
@@ -184,7 +182,24 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    override fun onCreateOptionsMenu (menu: Menu?) : Boolean{
+        menuInflater.inflate(R.menu.main_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_qrcode -> {
+                val intent = Intent(this, ScannerActivity::class.java)
+                startActivity(intent)
+            }
 
+            R.id.action_favorite -> {
+                val intent = Intent(this, FavoriteMoviesActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
 
 }

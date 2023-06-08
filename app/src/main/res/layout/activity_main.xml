@@ -1,36 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
     <EditText
         android:id="@+id/searchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Entrez le titre du film"
+        android:hint="@string/enter_title"
         android:inputType="text" />
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rechercher" />
-
-    <Button
-        android:id="@+id/btnNextActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Scanner un qr code"
-        />
+        android:layout_margin="5dp"
+        android:text="@string/search" />
 
 
 
@@ -115,7 +108,6 @@
         android:clipToPadding="false"
         android:paddingStart="16dp"
         android:paddingEnd="16dp" />
-
 
 
 </LinearLayout>

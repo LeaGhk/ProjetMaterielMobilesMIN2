@@ -9,4 +9,11 @@
     <string name="now_playing">Now playing movies</string>
     <string name="now_playing_movies_in_theaters">Movies now playing in theaters !</string>
     <string name="similar_movies">Similar movies :</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_scan">Scan QR code</string>
+    <string name="menu_favoris">Favorite</string>
+    <string name="favorites_movies">All your favorite movies</string>
+    <string name="enter_title">Enter title</string>
+    <string name="search">Search</string>
+    <string name="result_search">Result of the research</string>
 </resources>

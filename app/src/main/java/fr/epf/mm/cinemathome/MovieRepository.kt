@@ -172,4 +172,24 @@ object MovieRepository {
             })
     }
 
+    fun getMovie(movieId: Int, callback: (movie: Movie?, error: Throwable?) -> Unit) {
+        val call = api.getMovie(movieId)
+        call.enqueue(object : Callback<Movie> {
+            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                if (response.isSuccessful) {
+                    val movie = response.body()
+                    callback(movie, null) // Appel du callback avec l'objet Movie
+                } else {
+                    val error = Exception("Erreur de requête")
+                    callback(null, error) // Appel du callback avec une erreur
+                }
+            }
+
+            override fun onFailure(call: Call<Movie>, t: Throwable) {
+                callback(null, t) // Appel du callback avec une erreur de communication
+            }
+        })
+
+
+    }
 }

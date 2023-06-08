@@ -40,4 +40,12 @@ interface APIInterface {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("page") page: Int
     ): Call<MovieResult>
+
+    @GET("movie/{movie_id}")
+    fun getMovie(
+        @Path("movie_id") movie_id: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+    ): Call<Movie>
+
+
 }

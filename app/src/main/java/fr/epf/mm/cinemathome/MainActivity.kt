@@ -2,7 +2,6 @@ package fr.epf.mm.cinemathome
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -74,6 +73,12 @@ class MainActivity : AppCompatActivity() {
             val query = searchEditText.text.toString()
             val intent = Intent(this, SearchMoviesActivity::class.java)
             intent.putExtra(MOVIE_SEARCH, query)
+            startActivity(intent)
+        }
+
+        val btnNextActivity: Button = findViewById(R.id.btnNextActivity)
+        btnNextActivity.setOnClickListener {
+            val intent = Intent(this, ScannerActivity::class.java)
             startActivity(intent)
         }
 
@@ -178,10 +183,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun searchActivity(movie: Movie) {
-        println("coucou je suis en train de faire des trucs")
 
-    }
 
 
 

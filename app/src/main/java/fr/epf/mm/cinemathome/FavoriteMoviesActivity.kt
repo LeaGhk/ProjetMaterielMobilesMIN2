@@ -91,7 +91,7 @@ class FavoriteMoviesActivity: AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu (menu: Menu?) : Boolean{
-        menuInflater.inflate(R.menu.favorite_movies_menu,menu)
+        menuInflater.inflate(R.menu.movie_details_menu,menu)
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -105,6 +105,12 @@ class FavoriteMoviesActivity: AppCompatActivity() {
                 val intent = Intent(this, ScannerActivity::class.java)
                 startActivity(intent)
             }
+
+            R.id.action_favorite -> {
+                val intent = Intent(this, FavoriteMoviesActivity::class.java)
+                startActivity(intent)
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }

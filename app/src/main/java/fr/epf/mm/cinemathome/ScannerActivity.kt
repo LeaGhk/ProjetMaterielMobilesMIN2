@@ -51,20 +51,28 @@ class ScannerActivity : Activity(), ZXingScannerView.ResultHandler {
         if (result != null) {
             val scannedText = result.text
 
-            val movieId = scannedText.toInt()
-
-            getMovie(movieId) { movie, error ->
-                if (error != null) {
-                    Toast.makeText(
-                        this,
-                        "Erreur, le format n'est pas reconnu.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-                    if (movie != null) {
-                        showMovieDetails(movie)
+            val movieId :Int
+            try {
+                movieId = scannedText.toInt()
+                getMovie(movieId) { movie, error ->
+                    if (error != null) {
+                        Toast.makeText(
+                            this,
+                            "Erreur, le film n'est pas reconnu.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        if (movie != null) {
+                            showMovieDetails(movie)
+                        }
                     }
                 }
+            } catch (e: NumberFormatException) {
+                Toast.makeText(
+                    this,
+                    "Le format du QR code n'est pas correct.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
         }

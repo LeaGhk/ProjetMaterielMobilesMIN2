@@ -18,7 +18,6 @@ class ScannerActivity : Activity(), ZXingScannerView.ResultHandler {
 
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
-        // Demander l'autorisation de la caméra si nécessaire
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_DENIED
         ) {
@@ -49,16 +48,18 @@ class ScannerActivity : Activity(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(result: Result?) {
-        // Traitement du résultat du scan
         if (result != null) {
             val scannedText = result.text
-            Toast.makeText(this, scannedText, Toast.LENGTH_SHORT).show()
 
             val movieId = scannedText.toInt()
 
             getMovie(movieId) { movie, error ->
                 if (error != null) {
-                    // Gérez l'erreur
+                    Toast.makeText(
+                        this,
+                        "Erreur, le format n'est pas reconnu.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     if (movie != null) {
                         showMovieDetails(movie)
@@ -67,12 +68,6 @@ class ScannerActivity : Activity(), ZXingScannerView.ResultHandler {
             }
 
         }
-
-
-
-
-
-        // Redémarrage du scanner pour une autre analyse
         mScannerView.resumeCameraPreview(this)
     }
 
@@ -84,11 +79,9 @@ class ScannerActivity : Activity(), ZXingScannerView.ResultHandler {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == CAMERA_PERMISSION_REQUEST) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // La permission de la caméra est accordée, redémarre la caméra
                 mScannerView.setResultHandler(this)
                 mScannerView.startCamera()
             } else {
-                // La permission de la caméra est refusée, affiche un message d'erreur
                 Toast.makeText(
                     this,
                     "Permission de la caméra refusée. Vous ne pouvez pas scanner de codes QR.",

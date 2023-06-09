@@ -178,15 +178,15 @@ object MovieRepository {
             override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
                 if (response.isSuccessful) {
                     val movie = response.body()
-                    callback(movie, null) // Appel du callback avec l'objet Movie
+                    callback(movie, null)
                 } else {
                     val error = Exception("Erreur de requête")
-                    callback(null, error) // Appel du callback avec une erreur
+                    callback(null, error)
                 }
             }
 
             override fun onFailure(call: Call<Movie>, t: Throwable) {
-                callback(null, t) // Appel du callback avec une erreur de communication
+                callback(null, t)
             }
         })
 

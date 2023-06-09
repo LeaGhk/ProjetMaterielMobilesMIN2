@@ -21,7 +21,8 @@ class FavoriteMoviesActivity: AppCompatActivity() {
 
         val favoritesSet = FavoritesManager.getFavorites(this)
         val favoriteMoviesList = mutableListOf<Movie>()
-        var pendingRequests = favoritesSet.size // Nombre de requêtes en attente
+        var pendingRequests = favoritesSet.size
+
 
 
         for (movieId in favoritesSet) {

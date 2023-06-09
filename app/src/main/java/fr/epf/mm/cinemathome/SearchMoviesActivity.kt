@@ -3,6 +3,8 @@ package fr.epf.mm.cinemathome
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -96,4 +98,32 @@ class SearchMoviesActivity : AppCompatActivity() {
     private fun onError() {
         Toast.makeText(this, getString(R.string.error_fetch_movies), Toast.LENGTH_SHORT).show()
     }
+
+    override fun onCreateOptionsMenu (menu: Menu?) : Boolean{
+        menuInflater.inflate(R.menu.movie_details_menu,menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_qrcode -> {
+                val intent = Intent(this, ScannerActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.action_favorite -> {
+                val intent = Intent(this, FavoriteMoviesActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.action_home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
+
 }
